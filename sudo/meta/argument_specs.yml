@@ -1,0 +1,6 @@
+---
+main:
+  options:
+    authorized_keys:
+      type: list
+      default: []

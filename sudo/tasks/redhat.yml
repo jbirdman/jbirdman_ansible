@@ -1,0 +1,17 @@
+---
+- name: Install pam_ssh_agent_auth
+  ansible.builtin.package:
+    name: pam_ssh_agent_auth
+    state: present
+
+- name: Configure pam sudo for ssh_agent_auth
+  community.general.pamd:
+    name: sudo
+    type: auth
+    control: include
+    module_path: system-auth
+    new_type: auth
+    new_control: sufficient
+    new_module_path: pam_ssh_agent_auth.so
+    module_arguments: file=/etc/security/authorized_keys
+    state: before

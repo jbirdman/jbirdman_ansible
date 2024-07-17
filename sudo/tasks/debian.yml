@@ -1,0 +1,12 @@
+---
+- name: Ensure pam_ssh_agent_auth is installed
+  ansible.builtin.package:
+    name: libpam-ssh-agent-auth
+    state: present
+
+- name: Configure pam sudo for ssh_agent_auth
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/sudo
+    line: 'auth sufficient pam_ssh_agent_auth.so file=/etc/security/authorized_keys'
+    search_string: 'pam_ssh_agent_auth.so'
+    insertbefore: '^@include common-auth'

@@ -1,0 +1,13 @@
+---
+- name: Install pam_ssh_agent_auth
+  ansible.builtin.package:
+    name: pam_ssh_agent_auth
+    state: present
+
+- name: Add pam config for sudo
+  ansible.builtin.copy:
+    dest: /etc/pam.d/sudo
+    src: files/suse_pam_d_sudo
+    mode: '0644'
+    owner: root
+    group: root
